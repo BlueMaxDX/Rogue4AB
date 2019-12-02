@@ -20,7 +20,7 @@ void drawInventry(byte st, byte mode) {
   byte ed;
   arduboy.clear();
   locate(0, 0);
-  if(mode==1){
+  if (mode == 1) {
     font5x7.print(F(" which?"));
   }
   locate(0, 1 - !mode );
@@ -34,47 +34,47 @@ void drawInventry(byte st, byte mode) {
   for (int i = st; i < ed; i++) {
     locate(1, i - st + 1 - !mode );
     char buff;
-    if(bitRead(inv[i].i4,3)==1){
-      buff='{';
+    if (bitRead(inv[i].i4, 3) == 1) {
+      buff = '{';
     } else {
       buff = pgm_read_byte(tsym + inv[i].ii / 16 - 1);
     }
     font5x7.print(buff);
     font5x7.print(' ');
 
-    if(bitRead(inv[i].i4,7)==1){
-        font5x7.print(inv[i].i1);
-        font5x7.print(' ');      
+    if (bitRead(inv[i].i4, 7) == 1) {
+      font5x7.print(inv[i].i1);
+      font5x7.print(' ');
     }
-    if(inv[i].ii/16<5){
-      itmToGitm(inv[i].ii/16,inv[i].ii%16,0);
+    if (inv[i].ii / 16 < 5) {
+      itmToGitm(inv[i].ii / 16, inv[i].ii % 16, 0);
     } else {
-      itmToGitm(inv[i].ii/16,inv[i].ii%16,bitRead(tknow[inv[i].ii/16-5],inv[i].ii%16));
+      itmToGitm(inv[i].ii / 16, inv[i].ii % 16, bitRead(tknow[inv[i].ii / 16 - 5], inv[i].ii % 16));
     }
     font5x7.print(activeMessage);
-    if(bitRead(inv[i].i4,5)==1){
-      if(inv[i].ii/16 == 3){           //weapon
+    if (bitRead(inv[i].i4, 5) == 1) {
+      if (inv[i].ii / 16 == 3) {       //weapon
         font5x7.print('[');
         font5x7.print((int)inv[i].i2);
         font5x7.print(',');
         font5x7.print((int)inv[i].i3);
-        font5x7.print(']');      
-      } else if(inv[i].ii/16 == 4 || inv[i].ii/16 == 8){      //armor or ring
+        font5x7.print(']');
+      } else if (inv[i].ii / 16 == 4 || inv[i].ii / 16 == 8) { //armor or ring
         font5x7.print('[');
         font5x7.print((int)inv[i].i2);
         font5x7.print(']');
-      } else if(inv[i].ii/16 == 7){
-        if(inv[i].i2 != 0){
+      } else if (inv[i].ii / 16 == 7) {
+        if (inv[i].i2 != 0) {
           font5x7.print('[');
           font5x7.print((int)inv[i].i2);
           font5x7.print(']');
         }
       }
     }
-    if(bitRead(inv[i].i4,4)==1){
+    if (bitRead(inv[i].i4, 4) == 1) {
       font5x7.print(F(" E"));
     }
-    if(bitRead(inv[i].i4,6)==1 && bitRead(inv[i].i4,1)==1){
+    if (bitRead(inv[i].i4, 6) == 1 && bitRead(inv[i].i4, 1) == 1) {
       font5x7.print(F(" C"));
     }
   }
@@ -94,10 +94,10 @@ byte inventry(byte mode) {
       if (st < hero.im - 1) st++;
     }
     if (a == 5) {
-      if(mode==0){
+      if (mode == 0) {
         ex = action(st);
       } else {
-        ex=1;
+        ex = 1;
       }
     }
     if (a == 6) {
@@ -146,34 +146,20 @@ byte action(byte st) {
         }
         break;
       case 5:
-        if(curs==0){
-          if(hero.hslep == 0) {
+        if (hero.hslep == 0) {
+          if (curs == 0) {
             useItem(st);
-            sortItem();
-            moveMonst();
-            tweatHero();
-          } else {
-            setActiveMessage(22);
-          }
-          ex=1;
-        } else if(curs==1){
-          if(hero.hslep == 0) {
+          } else if (curs == 1) {
             throwItem(st);
-            sortItem();
-          } else {
-            setActiveMessage(22);
-          }  
-          ex=1;
-        } else if(curs==2){
-          if(hero.hslep == 0){
+          } else if (curs == 2) {
             dropItem(hero.hx, hero.hy, st);
-            sortItem();
-            moveMonst();
-            tweatHero();
-          } else {
-            setActiveMessage(22);
           }
-          ex=1;
+          sortItem();
+          moveMonst();
+          tweatHero();
+          ex = 1;
+        } else {
+          setActiveMessage(22);
         }
         break;
       case 6:
@@ -189,10 +175,12 @@ void showStatus() {
   if (hero.hx < 10) {
     h = 11;
   }
-  if(hero.hblnd==0) drawMap();
+  if (hero.hblnd == 0) {
+    drawMap();
+    drawThing();
+    drawMonst();
+  }
   drawHero();
-  if(hero.hblnd==0) drawThing();
-  if(hero.hblnd==0) drawMonst();
 
   for (int i = 0; i < 8; i++) {
     locate(h, i);
@@ -219,12 +207,12 @@ void showStatus() {
   font5x7.print(hero.stm);
   locate(h, 5);
   font5x7.print(F("AC:"));
-  byte a=equip(4,1);
-  byte ac=0;
-  if(a==0){
-    ac=0;
+  byte a = equip(4, 1);
+  byte ac = 0;
+  if (a == 0) {
+    ac = 0;
   } else {
-    ac=pgm_read_byte(astat + inv[a-1].ii % 16 ) + inv[a-1].i2;
+    ac = pgm_read_byte(astat + inv[a - 1].ii % 16 ) + inv[a - 1].i2;
   }
   font5x7.print((int)ac);
   locate(h, 6);
