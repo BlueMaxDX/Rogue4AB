@@ -24,7 +24,7 @@ void makeDungeon2() {
     box(1, 1, 19, 6,   1);
   } else {
     isBigRoom = 0;
-    //縦に３分割する
+//split three parts vertical
     for (int i = 0; i < 7; i++) {
       int r=random(3);
       roomWidth[ r ]++;
@@ -54,19 +54,17 @@ void makeDungeon2() {
 
       if(r > 3){
         hasRoom[i*2    ] = 1;
-//        hasRoom[i*2 + 1] = 0;
       } else if(r == 3){
         hasRoom[i*2    ] = 1;
         hasRoom[i*2 + 1] = 1;
         pass[i*3]=0;
         passstat = passstat + 2^i;
       } else if(r < 3){
-//        hasRoom[i*2    ] = 0;
         hasRoom[i*2 + 1] = 1;
       }
     }
 
-    //部屋間の通路を減らす
+//delete several passway
     if (passstat == 0) {
       if (random(2) == 0) {
         pass[random(4)] = 0;
@@ -88,7 +86,7 @@ void makeDungeon2() {
       }
     }
 
-    //部屋の大きさを決める（まとめられそう）
+//set room size
     for (int i = 0; i <= 5; i++) {
       if (hasRoom[i] == 1) {
         int roomX = random(areaEX[i] - areaSX[i] - 2) + 2; // 2<= roomX <= areaEX-areaSX+1-2
@@ -116,7 +114,7 @@ void makeDungeon2() {
       }
     }
 
-    //部屋を配列に書き込む
+//set rooms to dungeon[x][y]
     for (int i = 0; i <= 5; i++) {
       if (hasRoom[i] == 1) {
         box(roomSX[i] - 1, roomSY[i] - 1, roomEX[i] + 1, roomEY[i] + 1, 201 + i);
@@ -126,7 +124,7 @@ void makeDungeon2() {
         dungeon[roomSX[i]][roomSY[i]] = 8;
       }
     }
-    //部屋間の通路をつくる
+//set passway to dungeon[x][y]
     for (int p = 0; p <= 6; p++) {
 
       if (pass[p] == 1) {
@@ -140,7 +138,7 @@ void makeDungeon2() {
           fm = ro * 2 + (p + 1) % 2;
           to = fm + 2;
         }
-        //縦の通路のとき（for文は、boxになる？）
+//in case of vertical passway
         if (dr == 0) {
           doorX[0] = roomEX[fm] + 1;
           doorY[0] = roomSY[fm] + random(roomEY[fm] - roomSY[fm]);
@@ -168,7 +166,7 @@ void makeDungeon2() {
             box(root[ro], doorY[1], root[ro], doorY[0], 8);
           }
 
-          //横の通路のとき
+//in case of holizontal passway
         } else {
           if (hasRoom[fm] == 1) {
             doorX[0] = roomSX[fm + 1];
@@ -196,14 +194,14 @@ void makeDungeon2() {
         }
       }
     }
-    //６部屋の場合，縦につなぐ
+//six rooms, make vertical passway
     if (passstat == 7) {
       int r = random(2);
       for (int yy = 2; yy <= 5; yy++) {
         dungeon[root[r]][yy] = 8;
       }
     }
-    //隠された通路
+//hidden passway
     for (int i = 0; i < 21; i++) {
       for (int j = 0; j < 8; j++) {
         if (dungeon[i][j] == 8 && random(5) == 0) {
@@ -212,14 +210,14 @@ void makeDungeon2() {
       }
     }
   }
-  //階段をつくる
+//make stair
   int s = 0;
   if (isBigRoom == 0) {
     s = random(3) * 2;
     if (hasRoom[s] == 0) s++;
   }
   dungeon[roomSX[s] + random(roomEX[s] - roomSX[s] + 1)][roomSY[s] + random(roomEY[s] - roomSY[s] + 1)] = 11 + s;
-  //暗い部屋をつくる
+//make dark rooms
   for (int i = 0; i < 6; i++) {
     if (random(5) == 0) {
       isDark[i] = 1;
@@ -229,7 +227,7 @@ void makeDungeon2() {
   }
 
   clearKnown();
-  //ヒーローを置く
+//put Hero
   teleportHero();
 }
 
