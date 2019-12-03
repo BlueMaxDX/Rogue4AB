@@ -157,10 +157,10 @@ byte action(byte st) {
           sortItem();
           moveMonst();
           tweatHero();
-          ex = 1;
         } else {
           setActiveMessage(22);
         }
+        ex = 1;
         break;
       case 6:
         ex = 1;
