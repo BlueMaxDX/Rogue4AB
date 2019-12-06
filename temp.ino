@@ -58,7 +58,7 @@ void makeDungeon2() {
         hasRoom[i*2    ] = 1;
         hasRoom[i*2 + 1] = 1;
         pass[i*3]=0;
-        passstat = passstat + 2^i;
+        passstat = passstat + (1<<i);
       } else if(r < 3){
         hasRoom[i*2 + 1] = 1;
       }
