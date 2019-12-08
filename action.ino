@@ -94,6 +94,7 @@ void drink(byte r) {
       break;
     case 6:       //blind
       hero.hblnd = 50;
+      updateScreen();
       break;
     case 7:       //hallu
       hero.hhall = 50;

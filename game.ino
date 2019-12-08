@@ -36,6 +36,7 @@ void title() {
     clearKnown();
     buildDungeon();
     setActiveMessage(0);
+    updateScreen();
     gstate = 1;
   }
   if (arduboy.justPressed(B_BUTTON) ){ //&& welc == 1) {
@@ -59,6 +60,7 @@ void landing(){
   if (arduboy.justPressed(A_BUTTON) ) {
     setActiveMessage(29);
     buildDungeon();
+    updateScreen();
     gstate = 1;
   }
 
@@ -227,68 +229,76 @@ byte checkHiScore() {
 
 void gameloop() {
   byte mm, r;
+  byte res;
 
-  if (arduboy.justPressed(LEFT_BUTTON)) {
-    heroMove(1);
-  }
-
-  if (arduboy.justPressed(RIGHT_BUTTON)) {
-    heroMove(3);
-  }
-
-  if (arduboy.justPressed(UP_BUTTON)) {
-    heroMove(2);
-  }
-
-  if (arduboy.justPressed(DOWN_BUTTON)) {
-    if (arduboy.buttonsState() == 24) {
-      ss = 1;
-    } else {
-      heroMove(4);
-    }
-  }
-
-  if (arduboy.justPressed(A_BUTTON)) {
-    if (ss == 1) {
-      ss = 0;
-    } else {
-      if (dungeon[hero.hx][hero.hy] >= 11 && dungeon[hero.hx][hero.hy] <= 16 && hero.hheld == 0) {
-        hero.hmdet = 0;
-        hero.hisee = 0;
-        if (inv[hero.im - 1].ii == 144) {
-          hero.dlv--;
-        } else {
-          hero.dlv++;
-        }
-        if (hero.dlv == 0) {
-          gstate = 3;
-        } else {
-          gstate = 5;
-        }
-      } else {
-        search();
-        wakeUp();
-        tweatHero();
-        moveMonst();
+  res = inputWait();
+  switch( res ){
+    case 1:
+    case 2:
+    case 3:
+      {
+        heroMove( res );
+        break;
       }
-    }
-  }
-
-  if (arduboy.justPressed(B_BUTTON)) {
-    ss = 0;
-    setActiveMessage(29);
-    inventry(0);
+    case 4:
+      {
+        if (arduboy.buttonsState() == 24) {
+          ss = 1;
+        } else {
+          heroMove(4);
+        }
+        break;
+      }
+    case 5:
+      {
+        if (ss == 1) {
+          ss = 0;
+        } else {
+          if (dungeon[hero.hx][hero.hy] >= 11 && dungeon[hero.hx][hero.hy] <= 16 && hero.hheld == 0) {
+            hero.hmdet = 0;
+            hero.hisee = 0;
+            if (inv[hero.im - 1].ii == 144) {
+              hero.dlv--;
+            } else {
+              hero.dlv++;
+            }
+            if (hero.dlv == 0) {
+              gstate = 3;
+            } else {
+              gstate = 5;
+            }
+          } else {
+            search();
+            wakeUp();
+            tweatHero();
+            moveMonst();
+          }
+        }
+        break;
+      }
+    case 6:
+      {
+        ss = 0;
+        setActiveMessage(29);
+        inventry(0);
+        break;
+      }
   }
 
   makeKnown();
-  if (hero.hblnd == 0) drawMap();
-  drawHero();
-  if (hero.hblnd == 0) drawThing();
-  if (hero.hblnd == 0) drawMonst();
+  updateScreen();
   if (ss == 1) {
     showStatus();
   }
   showMsg();
+}
+
+void updateScreen(){
+  if (hero.hblnd == 0) drawMap();
+  drawHero();
+  if (hero.hblnd == 0) drawThing();
+  if (hero.hblnd == 0) drawMonst();
+  arduboy.display();
 }
 
 void buildDungeon() {

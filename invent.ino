@@ -175,13 +175,9 @@ void showStatus() {
   if (hero.hx < 10) {
     h = 11;
   }
-  if (hero.hblnd == 0) {
-    drawMap();
-    drawThing();
-    drawMonst();
-  }
-  drawHero();
-
+  
+  updateScreen();
+  
   for (int i = 0; i < 8; i++) {
     locate(h, i);
     font5x7.print(F("          "));
