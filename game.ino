@@ -296,7 +296,7 @@ void gameloop() {
 
 void updateScreen(){
   makeKnown();
-  if (hero.hblnd == 0) drawMap();
+  drawMap();
   drawHero();
   if (hero.hblnd == 0) drawThing();
   if (hero.hblnd == 0) drawMonst();

@@ -7,7 +7,7 @@ byte getKnown(byte x, byte y) {
 }
 
 void clearKnown() {
-  
+
   memset(monst, 0, sizeof(monst));  //thanks @Dreamer3
   memset(thing, 0, sizeof(thing));
   memset(known, 0, sizeof(known));
@@ -53,48 +53,51 @@ void clearDungeon() {
 }
 
 void locate(int x, int y) {
-  font5x7.setCursor(1 + x * 6, y * 8-1);
+  font5x7.setCursor(1 + x * 6, y * 8 - 1);
 }
 
 void drawMap() {    //@Pharap's sharp eye
   for (int i = 0; i < 21; i++) {
     for (int j = 0; j < 8; j++) {
       locate(i, j);
-
       char c = ' ';
-      if (getKnown(i, j) == 1) {
-        if (dungeon[i][j] == 0) {
-          c = ' '; //arduboy.print(F(" "));
-        } else if (((dungeon[i][j] >= 1 && dungeon[i][j] <= 6) || (dungeon[i][j] >= 31 && dungeon[i][j] <= 106)) 
-          && isDark[dungeon[hero.hx][hero.hy] % 10 - 1] == 0) {
-          if ( dungeon[i][j] % 10 == dungeon[hero.hx][hero.hy] % 10 ) {
-            c = '.'; //arduboy.print(F("."));
-          } else {
+      if (hero.hblnd == 0) {
+        if (getKnown(i, j) == 1) {
+          if (dungeon[i][j] == 0) {
             c = ' '; //arduboy.print(F(" "));
+          } else if (((dungeon[i][j] >= 1 && dungeon[i][j] <= 6) || (dungeon[i][j] >= 31 && dungeon[i][j] <= 106))
+                     && isDark[dungeon[hero.hx][hero.hy] % 10 - 1] == 0) {
+            if ( dungeon[i][j] % 10 == dungeon[hero.hx][hero.hy] % 10 ) {
+              c = '.'; //arduboy.print(F("."));
+            } else {
+              c = ' '; //arduboy.print(F(" "));
+            }
+          } else if (dungeon[i][j] == 8) {
+            c = '#'; //arduboy.print(F("#"));
+          } else if (dungeon[i][j] >= 11 && dungeon[i][j] <= 16) {
+            c = '%'; //arduboy.print(F("%"));
+          } else if (dungeon[i][j] >= 21 && dungeon[i][j] <= 26) {
+            c = '+'; //arduboy.print(F("+"));
+          } else if (dungeon[i][j] >= 111 && dungeon[i][j] <= 186) {
+            c = '^'; //arduboy.print(F("^"));
+          } else if (dungeon[i][j] >= 191 && dungeon[i][j] <= 198) {
+            c = '?'; //arduboy.print(F("?"));
+          } else if (dungeon[i][j] >= 201 && dungeon[i][j] <= 206) {
+            c = '-'; //arduboy.print(F("-"));
+          } else if (dungeon[i][j] >= 211 && dungeon[i][j] <= 216) {
+            c = '|'; //arduboy.print(F("|"));
+          } else if (dungeon[i][j] >= 221 && dungeon[i][j] <= 226) {
+            c = '-'; //arduboy.print(F("-"));
+          } else if (dungeon[i][j] == 228) {
+            c = ' '; //arduboy.print(F(" "));
+          } else if (dungeon[i][j] >= 231 && dungeon[i][j] <= 236) {
+            c = '|'; //arduboy.print(F("|"));
           }
-        } else if (dungeon[i][j] == 8) {
-          c = '#'; //arduboy.print(F("#"));
-        } else if (dungeon[i][j] >= 11 && dungeon[i][j] <= 16) {
-          c = '%'; //arduboy.print(F("%"));
-        } else if (dungeon[i][j] >= 21 && dungeon[i][j] <= 26) {
-          c = '+'; //arduboy.print(F("+"));
-        } else if (dungeon[i][j] >= 111 && dungeon[i][j] <= 186) {
-          c = '^'; //arduboy.print(F("^"));
-        } else if (dungeon[i][j] >= 191 && dungeon[i][j] <= 198) {
-          c = '?'; //arduboy.print(F("?"));
-        } else if (dungeon[i][j] >= 201 && dungeon[i][j] <= 206) {
-          c = '-'; //arduboy.print(F("-"));
-        } else if (dungeon[i][j] >= 211 && dungeon[i][j] <= 216) {
-          c = '|'; //arduboy.print(F("|"));
-        } else if (dungeon[i][j] >= 221 && dungeon[i][j] <= 226) {
-          c = '-'; //arduboy.print(F("-"));
-        } else if (dungeon[i][j] == 228) {
+        } else {
           c = ' '; //arduboy.print(F(" "));
-        } else if (dungeon[i][j] >= 231 && dungeon[i][j] <= 236) {
-          c = '|'; //arduboy.print(F("|"));
         }
       } else {
-        c = ' '; //arduboy.print(F(" "));
+        c = ' ';
       }
       font5x7.print(c);
     }
@@ -108,8 +111,8 @@ void drawHero() {     //@Pharap's sharp eye
       for (int j = 0; j <= 2; j++) {
         int tx = hero.hx + i - 1;
         int ty = hero.hy + j - 1;
-        if ((dungeon[tx][ty] >= 1 && dungeon[tx][ty] <= 6) || 
-          (dungeon[tx][ty] >= 31 && dungeon[tx][ty] <= 106) ) { // (tx >= 0 && tx <= 20 && ty >= 0 && ty <= 7)
+        if ((dungeon[tx][ty] >= 1 && dungeon[tx][ty] <= 6) ||
+            (dungeon[tx][ty] >= 31 && dungeon[tx][ty] <= 106) ) { // (tx >= 0 && tx <= 20 && ty >= 0 && ty <= 7)
           locate(tx, ty);
           font5x7.print('.');
         }
@@ -192,25 +195,25 @@ void moveMonst() {
           } else if (ms[i] % 32 == 25 && canBless() > 0 && random(2) == 0) {
             flashHero('*');
             setActiveMessage(19);
-            byte dmg = random(22-hero.lv);
-            charon(dmg,3);
+            byte dmg = random(22 - hero.lv);
+            charon(dmg, 3);
           } else {
-            
-            char d=1;
-            if(ms[i]/32 == 7) d=-1;
-            
+
+            char d = 1;
+            if (ms[i] / 32 == 7) d = -1;
+
             if ( mx[i] > hero.hx && monst[mx[i] - d][my[i]] == 0
-                && dungeon[mx[i] - d][my[i]] >= 1 && dungeon[mx[i] - d][my[i]] <= 190) {
-              r=2-d;
+                 && dungeon[mx[i] - d][my[i]] >= 1 && dungeon[mx[i] - d][my[i]] <= 190) {
+              r = 2 - d;
             } else if ( my[i] > hero.hy && monst[mx[i]][my[i] - d] == 0
-                       && dungeon[mx[i]][my[i] - d] >= 1 && dungeon[mx[i]][my[i] - d] <= 190) {
-              r=3-d;
+                        && dungeon[mx[i]][my[i] - d] >= 1 && dungeon[mx[i]][my[i] - d] <= 190) {
+              r = 3 - d;
             } else if ( mx[i] < hero.hx && monst[mx[i] + d][my[i]] == 0
-                       && dungeon[mx[i] + d][my[i]] >= 1 && dungeon[mx[i] + d][my[i]] <= 190) {
-              r=2+d;
+                        && dungeon[mx[i] + d][my[i]] >= 1 && dungeon[mx[i] + d][my[i]] <= 190) {
+              r = 2 + d;
             } else if ( my[i] < hero.hy && monst[mx[i]][my[i] + d] == 0
-                       && dungeon[mx[i]][my[i] + d] >= 1 && dungeon[mx[i]][my[i] + d] <= 190) {
-              r=3+d;
+                        && dungeon[mx[i]][my[i] + d] >= 1 && dungeon[mx[i]][my[i] + d] <= 190) {
+              r = 3 + d;
             } else {
               r = random(4) + 1;
             }
@@ -227,7 +230,7 @@ void moveMonst() {
             case 4:
               if (mx[i] + dx == hero.hx && my[i] + dy == hero.hy) {
                 if (tt == 0) hitHero(ms[i] % 32, i);
-              } else if (ms[i]%32 != 15 &&
+              } else if (ms[i] % 32 != 15 &&
                          mx[i] + dx >= 0 && mx[i] + dx <= 20 &&
                          my[i] + dy >= 0 && my[i] + dy <= 7 &&
                          monst[mx[i] + dx][my[i] + dy] == 0 &&
@@ -252,7 +255,7 @@ void placeMonst() {
   for (int i = 0; i <= 8 + isBigRoom * 7; i++) {
     if ( random(3) == 0) {
       int h = 0;
-      if(isBigRoom==0) h=random(RMAX) * 2;
+      if (isBigRoom == 0) h = random(RMAX) * 2;
       if (hasRoom[h] == 0) h++;
       mx[i] = roomSX[h] + random(roomEX[h] - roomSX[h] + 1);
       my[i] = roomSY[h] + random(roomEY[h] - roomSY[h] + 1);
@@ -271,7 +274,7 @@ void generateMon(byte m) {
   byte stt, mon;
   int hr = ((dungeon[hero.hx][hero.hy] - 1) % 10 - ((dungeon[hero.hx][hero.hy] - 1) % 10) % 2) / 2;
   int h = 0;
-  if(isBigRoom==0) h=((hr + 1) % RMAX) * 2;
+  if (isBigRoom == 0) h = ((hr + 1) % RMAX) * 2;
   if (hasRoom[h] == 0) h++;
   mx[m] = roomSX[h] + random(roomEX[h] - roomSX[h] + 1);
   my[m] = roomSY[h] + random(roomEY[h] - roomSY[h] + 1);
@@ -310,7 +313,7 @@ void placeThing() {
     }
   }
 
-  if( hero.dlv % 3 ==0){
+  if ( hero.dlv % 3 == 0) {
     for ( int i = 0; i < RMAX * 2; i++) {
       if (hasRoom[i] == 1) {
         byte ix = random(roomSX[i], roomEX[i] + 1);
@@ -322,7 +325,7 @@ void placeThing() {
 
   if (hero.dlv >= adepth && inv[hero.im - 1].ii != 144) {
     byte a = 0;
-    if(isBigRoom==0) a=random(RMAX) * 2;
+    if (isBigRoom == 0) a = random(RMAX) * 2;
     if (hasRoom[a] == 0) a++;
     byte ax = roomSX[a] + random(roomEX[a] - roomSX[a] + 1);
     byte ay = roomSY[a] + random(roomEY[a] - roomSY[a] + 1);
@@ -345,7 +348,7 @@ void placeThingXY(byte ix, byte iy, byte r) {
     tng[t].i2 = 0;
     tng[t].i3 = 0;
     tng[t].i4 = 0;
-    if(r==0){
+    if (r == 0) {
       kind = randThing();
     } else {
       kind = r;
@@ -511,7 +514,7 @@ void checkThing(byte x, byte y) {
       if (done == 0) {
         if (hero.im == IMAX) {
         } else {
-          inv[hero.im] = tng[thing[x][y]-1];
+          inv[hero.im] = tng[thing[x][y] - 1];
           deleteThing(thing[x][y] - 1);
           thing[x][y] = 0;
           hero.im++;
@@ -573,7 +576,7 @@ void tweatHero() {
     hero.hp = hero.hp + r2;
     hero.hpm = hero.hpm + r2;
   }
-  if ( hero.hp < hero.hpm && hero.ht % ((22 - hero.lv)/3+1) == 0) {
+  if ( hero.hp < hero.hpm && hero.ht % ((22 - hero.lv) / 3 + 1) == 0) {
     hero.hp = hero.hp + 1 + hasRing(2);
   }
   if (hero.hconf > 0) hero.hconf--;
@@ -593,12 +596,12 @@ void tweatHero() {
     hero.hh--;
   }
 
-  if( hero.hh < 60 || hero.hp <= hero.hpm / 4) {
+  if ( hero.hh < 60 || hero.hp <= hero.hpm / 4) {
     setActiveMessage(30);
   }
 
   if (hero.hh <= 0) {  //gashi
-    death=0;
+    death = 0;
     gstate = 2;
   }
   for (int i = 0; i < hasRing(10) * 2; i++) {
