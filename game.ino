@@ -37,6 +37,7 @@ void title() {
     buildDungeon();
     setActiveMessage(0);
     updateScreen();
+    showMsg();
     gstate = 1;
   }
   if (arduboy.justPressed(B_BUTTON) ){ //&& welc == 1) {
@@ -285,8 +286,8 @@ void gameloop() {
       }
   }
 
-  makeKnown();
   updateScreen();
+  
   if (ss == 1) {
     showStatus();
   }
@@ -294,6 +295,7 @@ void gameloop() {
 }
 
 void updateScreen(){
+  makeKnown();
   if (hero.hblnd == 0) drawMap();
   drawHero();
   if (hero.hblnd == 0) drawThing();
