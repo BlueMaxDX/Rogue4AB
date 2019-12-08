@@ -2,7 +2,7 @@ void box(byte x1, byte y1, byte x2, byte y2, byte kind) {
   for (int x = x1; x < x2 + 1; x++) {
     for (int y = y1; y < y2 + 1; y++) {
       if( kind <= 7 && random(20)==0){
-        dungeon[x][y] = random(6)*10 + 30 + kind;
+        dungeon[x][y] = random(6)*10 + 30 + kind; //build traps!
       } else {
         dungeon[x][y] = kind;
       }
