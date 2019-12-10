@@ -102,8 +102,8 @@ void specialAttack(byte mon, byte id) {  //mon=0 to 25 mon vari, @Pharas sharp e
     case 12:    //Aquator
       eq = equip(4, 1);
       rustArmor( eq );
-          hit = true; //flashHero();
-          setActiveMessage(16);
+      hit = true; //flashHero();
+      setActiveMessage(16);
       break;
     case 13:    //Nymph
       if (random(2) == 0) {
