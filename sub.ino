@@ -512,8 +512,7 @@ void checkThing(byte x, byte y) {
         }
       }
       if (done == 0) {
-        if (hero.im == IMAX) {
-        } else {
+        if (hero.im < IMAX) {
           inv[hero.im] = tng[thing[x][y] - 1];
           deleteThing(thing[x][y] - 1);
           thing[x][y] = 0;
