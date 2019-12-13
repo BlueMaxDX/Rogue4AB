@@ -76,6 +76,9 @@ void drink(byte r) {
       } else {
         hero.hp = (hero.hpm + hero.hp) / 2;
       }
+      hero.hblnd = 0;
+      hero.hconf /= 2;
+      hero.hhall /= 2;
       break;
     case 3:       //e.heal
       if (hero.hp == hero.hpm) {
@@ -84,6 +87,9 @@ void drink(byte r) {
       } else {
         hero.hp = hero.hpm;
       }
+      hero.hblnd = 0;
+      hero.hconf = 0;
+      hero.hhall = 0;
       break;
     case 4:       //poison
       if (hero.st > 3) hero.st = hero.st - random(3) - 1;
