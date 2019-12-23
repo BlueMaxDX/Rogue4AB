@@ -245,7 +245,7 @@ void zap(byte vari) {
 
 byte equip(byte type, byte n) {     //type=3(weapon),4(armor),7(ring), n=1 or 2(for ring)...rtab[equip(7,2)]
   byte result = 0;
-  for (int i = 0; i < 20; i++) {
+  for (int i = 0; i < IMAX; i++) {
     if (inv[i].ii / 16 == type) {
       if (bitRead(inv[i].i4, 4) == 1) {
         n--;

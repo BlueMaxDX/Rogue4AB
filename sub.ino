@@ -471,9 +471,9 @@ void checkThing(byte x, byte y) {
   if (thing[x][y] == 0) {
     setActiveMessage(29);
   } else {
-    byte type = tng[thing[x][y] - 1].ii / 16;
-    byte r = tng[thing[x][y] - 1].ii % 16;
-    byte k;
+    uint8_t type = tng[thing[x][y] - 1].ii / 16;
+    uint8_t r = tng[thing[x][y] - 1].ii % 16;
+    uint8_t k;
 
     switch (type) {
       case 1:

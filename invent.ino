@@ -34,6 +34,10 @@ void drawInventry(byte st, byte mode) {
   }
   for (int i = st; i < ed; i++) {
     locate(1, i - st + 1 - !mode );
+/*
+    font5x7.print(inv[i].ii);
+    font5x7.print(' ');
+*/
     char buff;
     if (bitRead(inv[i].i4, 3) == 1) {
       buff = '{';

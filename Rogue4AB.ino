@@ -49,11 +49,11 @@ struct hero {
 };
 
 struct item {
-  byte ii;
-  byte i1;
-  char i2;
-  char i3;
-  byte i4;
+  uint8_t ii; //byte ii;
+  uint8_t i1; //byte i1;
+  int8_t  i2; //char i2;
+  int8_t  i3; //char i3;
+  uint8_t i4; //byte i4;
 };
 
 Score glory[5];

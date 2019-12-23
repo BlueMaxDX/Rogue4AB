@@ -107,7 +107,7 @@ void specialAttack(byte mon, byte id) {  //mon=0 to 25 mon vari, @Pharas sharp e
       break;
     case 13:    //Nymph
       if (random(2) == 0) {
-        byte t = random(20);
+        byte t = random(IMAX);
         if (bitRead(inv[t].i4, 4) == 0) {
           hit = true; //flashHero();
           setActiveMessage(15);

@@ -57,7 +57,7 @@ byte sortItem() {
       inv[i].ii = 0;
     }
   }
-  return 20 - count;
+  return IMAX - count;
 }
 
 byte findScroll(byte t) {
