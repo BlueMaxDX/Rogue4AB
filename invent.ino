@@ -51,7 +51,7 @@ void drawInventry(byte st, byte mode) {
       font5x7.print(inv[i].i1);
       font5x7.print(' ');
     }
-    if (inv[i].ii / 16 < 5) {
+    if (inv[i].ii / 16 < 5 || inv[i].ii / 16 == 9) {
       itmToGitm(inv[i].ii / 16, inv[i].ii % 16, 0);
     } else {
       itmToGitm(inv[i].ii / 16, inv[i].ii % 16, bitRead(tknow[inv[i].ii / 16 - 5], inv[i].ii % 16));
@@ -92,21 +92,29 @@ byte inventry(byte mode) {
   do {
     drawInventry(st, mode);
     byte a = inputWait();
-    if (a == 2) {
-      if (st > 0) st--;
-    }
-    if (a == 4) {
-      if (st < hero.im - 1) st++;
-    }
-    if (a == 5) {
-      if (mode == 0) {
-        ex = action(st);
-      } else {
+    switch(a){
+      case 1:
+        if (st > 7 - mode) st -= (8 - mode);
+        break;
+      case 2:
+        if (st > 0) st--;
+        break;
+      case 3:
+        if (st < hero.im - 1 - 7 + mode) st += (8 - mode);
+        break;
+      case 4:
+        if (st < hero.im - 1 ) st++;
+        break;
+      case 5:
+        if (mode == 0) {
+          ex = action(st);
+        } else {
+          ex = 1;
+        }
+        break;
+      case 6:
         ex = 1;
-      }
-    }
-    if (a == 6) {
-      ex = 1;
+        break;
     }
   } while (ex == 0);
   return st;
