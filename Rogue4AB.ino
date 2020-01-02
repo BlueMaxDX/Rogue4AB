@@ -135,9 +135,9 @@ byte ttab[4][POMAX] = {
   {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}
 };
 
-item inv[IMAX]={};
-item tng[TMAX]={};
-item ftng={};
+item inv[IMAX]={0};
+item tng[TMAX]={0};
+item ftng={0};
 
 unsigned int tknow[4] = {0, 0, 0, 0}; //0:potion, 1:scroll, 2:ring, 3:wand
 

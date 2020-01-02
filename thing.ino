@@ -27,7 +27,7 @@ byte randPS(byte i) {     //i=0,potion 1,scroll
 }
 
 byte freeSlot() {
-  for (uint8_t index = 0; index < TMAX; ++index) {
+  for (uint8_t index = 0; index < TMAX; index++) {
     if(tng[index].ii == 0) {
       return index;
     }

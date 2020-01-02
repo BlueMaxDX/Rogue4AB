@@ -8,10 +8,10 @@ byte getKnown(byte x, byte y) {
 
 void clearKnown() {
 
-  memset(monst, 0, sizeof(monst));  //thanks @Dreamer3
-  memset(thing, 0, sizeof(thing));
-  memset(known, 0, sizeof(known));
-  memset(tng, 0, sizeof(tng));
+  memset(&monst, 0, sizeof(monst));  //thanks @Dreamer3
+  memset(&thing, 0, sizeof(thing));
+  memset(&known, 0, sizeof(known));
+  memset(&tng, 0, sizeof(tng));
   for (int i = 0; i < MMAX; i++) {
     mx[i] = 0;
     my[i] = 0;
@@ -23,7 +23,7 @@ void clearKnown() {
 }
 
 void allKnown() {
-  memset(known, 255, sizeof(known));    //thanks @Dreamer3
+  memset(&known, 255, sizeof(known));    //thanks @Dreamer3
 }
 
 void makeKnown() {
@@ -49,7 +49,7 @@ void makeKnown() {
 }
 
 void clearDungeon() {
-  memset(dungeon, 0, sizeof(dungeon));    //thanks Dreamer3
+  memset(&dungeon, 0, sizeof(dungeon));    //thanks Dreamer3
 }
 
 void locate(int x, int y) {
