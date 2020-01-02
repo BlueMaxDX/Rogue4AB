@@ -470,6 +470,9 @@ void drawThing() {
 void checkThing(byte x, byte y) {
   if (thing[x][y] == 0) {
     setActiveMessage(29);
+    
+    if(inv[0].ii != 32) setActiveMessage(0);
+
   } else {
     uint8_t type = tng[thing[x][y] - 1].ii / 16;
     uint8_t r = tng[thing[x][y] - 1].ii % 16;
@@ -491,13 +494,13 @@ void checkThing(byte x, byte y) {
         break;
     }
     itmToGitm(type, r, k);
-    byte done = 0;
     if (tng[thing[x][y] - 1].ii == 16) {
       hero.au = hero.au + tng[thing[x][y] - 1].i1;
       deleteThing(thing[x][y] - 1);
       thing[x][y] = 0;
-      done = 1;
+//      done = 1;
     } else {
+      byte done = 0;
       if (bitRead(tng[thing[x][y] - 1].i4, 7) == 1 ) {
         for (int i = 0; i < hero.im; i++) {
           if (inv[i].ii == tng[thing[x][y] - 1].ii &&

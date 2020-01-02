@@ -60,15 +60,15 @@ byte sortItem() {
   return IMAX - count;
 }
 
-byte findScroll(byte t) {
-  for (byte i = 0; i < SCMAX; i++) {
-    if (ttab[1][i] == t) return i;
+byte findItem(byte t, byte type) {  // type, potion=0, scroll=1, ring=2, wand=3
+  for (byte i = 0; i < POMAX; i++) {
+    if (ttab[type][i] == t) return i;
   }
 }
 
 void dropItem(byte x, byte y, byte st) {
   if (bitRead(inv[st].i4, 4) == 0) {
-    if (inv[st].ii == 16 * 6 + findScroll(7) ) { //&& bitRead(sknow,7)==1){
+    if (inv[st].ii == 16 * 6 + findItem(7,1) ) { //&& bitRead(sknow,7)==1){
       if(dungeon[x][y] >= 11 && dungeon[x][y] <=16){
         setActiveMessage(1);
       } else {
@@ -137,7 +137,7 @@ void useItem(byte st) {
     if (inv[st].i2 > 0) {
       inv[st].i2--;
     } else {
-      vari = ttab[3][9]; //9;
+      vari = findItem(9,3); //ttab[3][9]; //9;
     }
     zap(vari);
   }

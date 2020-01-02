@@ -45,4 +45,3 @@ void loadStatus(){
     EEPROM.get(600+i*2, tknow[i]);
   }
 }
-

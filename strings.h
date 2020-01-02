@@ -258,7 +258,8 @@ const char * const nitem[113] PROGMEM =
 };
 
 
-const char message0[] PROGMEM = "welcome!";
+//const char message0[] PROGMEM = "welcome!";
+const char message0[] PROGMEM = "DEBUG!";
 const char message1[] PROGMEM = "I cannot";
 const char message2[] PROGMEM = "no happens";
 const char message3[] PROGMEM = "something here";

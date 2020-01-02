@@ -85,14 +85,16 @@ void gameover() {
   font5x7.print(F("/  R.I.P. \\"));
   locate(4, 2);
   font5x7.print(F("/           \\"));
-  locate(4, 3);
-  font5x7.print(F("|   Hero    |"));
-  locate(4, 4);
-  font5x7.print(F("|           |"));
-  locate(4, 5);
-  font5x7.print(F("|           |"));
-  locate(3, 6);
-  font5x7.print(F("*|           |*"));
+  for( int i=0; i<4; i++){
+    locate(4,3+i);
+    font5x7.print(F("|           |"));
+  }
+  locate(8,3);
+  font5x7.print(F("Hero"));
+  locate(3,6);
+  font5x7.print('*');
+  locate(3,17);
+  font5x7.print('*');
   locate(0, 7);
   font5x7.print(F("___)\\\\//))(//\\(/((___"));
 
@@ -406,10 +408,12 @@ void charon(byte dmg, byte reason){
 // 3 :hellfire
 // 4-:killed by X
 
-void rustArmor(byte eq){
+int rustArmor(byte eq){
   if ( equip(4, 1) != 0 && bitRead(inv[eq - 1].i4, 3) == 0) {
     if (hasRing(9) == 0 && pgm_read_byte(astat + inv[eq - 1].ii % 16 ) + inv[eq - 1].i2 > 1) {
       inv[eq - 1].i2--;
+      return 1;
     }
   }
+  return 0;
 }
