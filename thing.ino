@@ -72,8 +72,7 @@ void dropItem(byte x, byte y, byte st) {
       if(dungeon[x][y] >= 11 && dungeon[x][y] <=16){
         setActiveMessage(1);
       } else {
-        inv[st].i1--;
-        if (inv[st].i1 == 0) deleteItem(st);
+        useItemOne(st);
         dungeon[x][y] = dungeon[x][y] % 10 + 190;
       }
     } else if (thing[x][y] != 0) {
@@ -98,10 +97,7 @@ void useItem(byte st) {
   byte kind = inv[st].ii / 16;
   byte vari = inv[st].ii % 16;
   if (kind == 2) {            //food
-    inv[st].i1--;
-    if (inv[st].i1 == 0) {
-      deleteItem(st);
-    }
+    useItemOne(st);
     eat(vari);
   } else if (kind == 3) {     //weapon
     wield(st);
@@ -109,19 +105,13 @@ void useItem(byte st) {
     wield(st);
   } else if (kind == 5) {     //potion
     bitWrite(tknow[0], vari, 1);
-    inv[st].i1--;
-    if (inv[st].i1 == 0) {
-      deleteItem(st);
-    }
+    useItemOne(st);
     drink(vari);
     itmToGitm(5, vari, 1);
   } else if (kind == 6) {     //scroll
     if (hero.hblnd == 0) {
       bitWrite(tknow[1], vari, 1);
-      inv[st].i1--;
-      if (inv[st].i1 == 0) {
-        deleteItem(st);
-      }
+      useItemOne(st);
       readScroll(vari);
       if (ttab[1][vari] != 4) {
         itmToGitm(6, vari, 1);
@@ -201,6 +191,11 @@ void deleteItem(byte i) {
   sortItem();
 }
 
+void useItemOne(byte index){
+  inv[index].i1--;
+  if(inv[index].i1 == 0) deleteItem(index);
+}
+
 void throwItem(byte i) {    //i=pack num 0 to 19
   char hdex = 0, hdmg = 0, dmg = 0;
   int dest = 0;
@@ -216,10 +211,7 @@ void throwItem(byte i) {    //i=pack num 0 to 19
       ftng = inv[i];
       ftng.i1 = 1;
       
-      inv[i].i1--;
-      if (inv[i].i1 == 0) {
-        deleteItem(i);
-      }
+      useItemOne(i);
 
       byte mon = dest / 256;
       char destx = (dest % 256) % 21;
