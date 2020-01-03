@@ -93,7 +93,7 @@ void gameover() {
   font5x7.print(F("Hero"));
   locate(3,6);
   font5x7.print('*');
-  locate(3,17);
+  locate(17,6);
   font5x7.print('*');
   locate(0, 7);
   font5x7.print(F("___)\\\\//))(//\\(/((___"));

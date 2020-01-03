@@ -471,7 +471,7 @@ void checkThing(byte x, byte y) {
   if (thing[x][y] == 0) {
     setActiveMessage(29);
     
-    if(inv[0].ii != 32) setActiveMessage(0);
+//    if(inv[0].ii != 32) setActiveMessage(0);
 
   } else {
     uint8_t type = tng[thing[x][y] - 1].ii / 16;
