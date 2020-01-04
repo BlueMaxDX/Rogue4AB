@@ -138,9 +138,9 @@ void makeDungeon2() {
 //in case of vertical passway
         if (dr == 0) {
           doorX[0] = roomEX[fm] + 1;
-          doorY[0] = roomSY[fm] + random(roomEY[fm] - roomSY[fm]);
+          doorY[0] = roomSY[fm] + random(roomEY[fm] - roomSY[fm]+1);
           doorX[1] = roomSX[to] - 1;
-          doorY[1] = roomSY[to] + random(roomEY[to] - roomSY[to]);
+          doorY[1] = roomSY[to] + random(roomEY[to] - roomSY[to]+1);
           if (hasRoom[fm] == 0) {
             dungeon[doorX[0]][doorY[0]] = 8;  //31+fr
           } else {
