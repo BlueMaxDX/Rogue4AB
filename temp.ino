@@ -101,9 +101,9 @@ void makeDungeon2() {
     for (int i = 0; i <= 5; i++) {
       if (hasRoom[i] == 0) {
         if (( i % 2 ) == 0) {
-          roomSX[i] = roomSX[i + 1] + random(roomEX[i + 1] - roomSX[i + 1]);
+          roomSX[i] = roomSX[i + 1] + random(roomEX[i + 1] - roomSX[i + 1] + 1);
         } else {
-          roomSX[i] = roomSX[i - 1] + random(roomEX[i - 1] - roomSX[i - 1]);
+          roomSX[i] = roomSX[i - 1] + random(roomEX[i - 1] - roomSX[i - 1] + 1);
         }
         roomSY[i] = areaSY[i] + random(areaEY[i] - areaSY[i] + 1);
         roomEX[i] = roomSX[i];

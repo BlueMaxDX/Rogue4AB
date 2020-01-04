@@ -235,14 +235,16 @@ void showStatus() {
 void search() {
   for (int i = hero.hx - 1; i <= hero.hx + 1; i++) {
     for (int j = hero.hy - 1; j <= hero.hy + 1; j++) {
-      if (dungeon[i][j] >= 31 && dungeon[i][j] <= 106) {
-        dungeon[i][j] = dungeon[i][j] + 80;
-      } else if (dungeon[i][j] >= 221 && dungeon[i][j] <= 226) {
-        dungeon[i][j] = dungeon[i][j] - 200;
-      } else if (dungeon[i][j] == 228) {
-        dungeon[i][j] = dungeon[i][j] - 220;
-      } else if (dungeon[i][j] >= 231 && dungeon[i][j] <= 236) {
-        dungeon[i][j] = dungeon[i][j] - 210;
+      if(j >= 0 && j <= 7){
+        if (dungeon[i][j] >= 31 && dungeon[i][j] <= 106) {
+          dungeon[i][j] = dungeon[i][j] + 80;
+        } else if (dungeon[i][j] >= 221 && dungeon[i][j] <= 226) {
+          dungeon[i][j] = dungeon[i][j] - 200;
+        } else if (dungeon[i][j] == 228) {
+          dungeon[i][j] = dungeon[i][j] - 220;
+        } else if (dungeon[i][j] >= 231 && dungeon[i][j] <= 236) {
+          dungeon[i][j] = dungeon[i][j] - 210;
+        }
       }
     }
   }
