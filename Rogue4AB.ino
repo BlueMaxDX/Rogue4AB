@@ -117,6 +117,7 @@ byte monst[21][8];
 byte thing[21][8];
 
 byte death=0;
+byte gRest=0;
 
 byte rank=0;
 hero hero={0,0,5,1,16,16,1,0,0,0,0,0,0,0,0,0,0,0,0,16,16,0,0,400,10};

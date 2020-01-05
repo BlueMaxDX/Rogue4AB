@@ -49,6 +49,9 @@ void hitHero(byte i, byte r) { //i=kind(0 to 25 r=ID(0 to 15)
   char dmg = 0;
   byte a = equip(4, 1);
   byte ac = 0;
+  
+  gRest=0;
+  
   if (a == 0) {
     ac = 0;
   } else {

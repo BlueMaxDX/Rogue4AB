@@ -188,13 +188,11 @@ byte action(byte st) {
 }
 
 void rest(){
-  byte done = 0;
-  while(done==0){
-    byte thp = hero.hp;
+  gRest = 1;
+  while(gRest == 1){
     moveMonst();
-    if(hero.hp< thp) done = 1;
     tweatHero();
-    if(hero.hp >= hero.hpm || hero.hh < 50) done = 1;
+    if(hero.hp >= hero.hpm || hero.hh < 50) gRest = 0;
   }
 }
 

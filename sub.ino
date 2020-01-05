@@ -190,11 +190,13 @@ void moveMonst() {
                      dungeon[mx[i]][my[i]] % 10 == dungeon[hero.hx][hero.hy] % 10 && bitRead(m1[i], 3) == 1) {
             flashHero('?');
             setActiveMessage(18);
+            gRest = 0;
             hero.hconf = 10;
             bitWrite(m1[i], 3, 0);
           } else if (ms[i] % 32 == 25 && canBless() > 0 && random(2) == 0) {
             flashHero('*');
             setActiveMessage(19);
+            gRest = 0;
             byte dmg = random(22 - hero.lv);
             charon(dmg, 3);
           } else {
