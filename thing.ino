@@ -268,7 +268,7 @@ void throwItem(byte i) {    //i=pack num 0 to 19
   } else {
     setActiveMessage(12);     // wielded
   }
-  moveMonst();
+//  moveMonst();
   tweatHero();
 }
 

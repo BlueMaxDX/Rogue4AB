@@ -123,13 +123,15 @@ byte inventry(byte mode) {
 byte action(byte st) {
   byte curs = 0;
   locate(1, 1);
-  font5x7.print(F("  use          "));
+  font5x7.print(F("  use   "));
   locate(1, 2);
-  font5x7.print(F("  throw        "));
+  font5x7.print(F("  throw "));
   locate(1, 3);
-  font5x7.print(F("  drop         "));
+  font5x7.print(F("  drop  "));
   locate(1, 4);
-  font5x7.print(F("               "));
+  font5x7.print(F("  rest  "));
+  locate(1, 5);
+  font5x7.print(F("        "));
   locate(1, curs + 1);
   font5x7.print('>');
 
@@ -149,7 +151,7 @@ byte action(byte st) {
         }
         break;
       case 4:
-        if (curs < 2) {
+        if (curs < 3) {
           locate(1, curs + 1);
           font5x7.print(' ');
           curs++;
@@ -166,6 +168,8 @@ byte action(byte st) {
             throwItem(st);
           } else if (curs == 2) {
             dropItem(hero.hx, hero.hy, st);
+          } else if (curs == 3) {
+            rest();
           }
           sortItem();
           moveMonst();
@@ -181,6 +185,17 @@ byte action(byte st) {
     }
   } while (ex == 0);
   return 1;
+}
+
+void rest(){
+  byte done = 0;
+  while(done==0){
+    byte thp = hero.hp;
+    moveMonst();
+    if(hero.hp< thp) done = 1;
+    tweatHero();
+    if(hero.hp >= hero.hpm || hero.hh < 50) done = 1;
+  }
 }
 
 void showStatus() {
