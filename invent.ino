@@ -129,8 +129,6 @@ byte action(byte st) {
   locate(1, 3);
   font5x7.print(F("  drop  "));
   locate(1, 4);
-  font5x7.print(F("  rest  "));
-  locate(1, 5);
   font5x7.print(F("        "));
   locate(1, curs + 1);
   font5x7.print('>');
@@ -151,7 +149,7 @@ byte action(byte st) {
         }
         break;
       case 4:
-        if (curs < 3) {
+        if (curs < 2) {
           locate(1, curs + 1);
           font5x7.print(' ');
           curs++;
@@ -168,9 +166,7 @@ byte action(byte st) {
             throwItem(st);
           } else if (curs == 2) {
             dropItem(hero.hx, hero.hy, st);
-          } else if (curs == 3) {
-            rest();
-          }
+          } 
           sortItem();
           moveMonst();
           tweatHero();

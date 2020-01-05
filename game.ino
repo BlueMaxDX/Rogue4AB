@@ -255,7 +255,8 @@ void gameloop() {
     case 5:
       {
         if (ss == 1) {
-          ss = 0;
+//          ss = 0;
+          rest();
         } else {
           if (dungeon[hero.hx][hero.hy] >= 11 && dungeon[hero.hx][hero.hy] <= 16 && hero.hheld == 0) {
             hero.hmdet = 0;
