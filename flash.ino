@@ -1,6 +1,7 @@
 void flashHero(char sym){
   if(hero.hblnd==0) {
     drawMap();
+    drawHero();
     drawThing();
     drawMonst();
   }
@@ -13,6 +14,7 @@ void flashHero(char sym){
 void flashMonst(byte num, char sym){
   if(hero.hblnd==0) {
     drawMap();
+    drawHero();
     drawThing();
     drawMonst();
   }
