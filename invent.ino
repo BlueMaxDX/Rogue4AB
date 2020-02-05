@@ -94,13 +94,21 @@ byte inventry(byte mode) {
     byte a = inputWait();
     switch(a){
       case 1:
-        if (st > 7 - mode) st -= (8 - mode);
+        if (st > 7 - mode) {
+          st -= (8 - mode);
+        } else {
+          st = 0;
+        }
         break;
       case 2:
         if (st > 0) st--;
         break;
       case 3:
-        if (st < hero.im - 1 - 7 + mode) st += (8 - mode);
+        if (st < hero.im - 1 - 7 + mode) {
+          st += (8 - mode);
+        } else {
+          st = hero.im - 1;
+        }
         break;
       case 4:
         if (st < hero.im - 1 ) st++;
