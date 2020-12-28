@@ -3,7 +3,7 @@
 This is a port of "Rogue" to Arduboy.
 
 
-##[Method of operation]<br>
+## [Method of operation]<br>
 D-PAD : Move the hero.<br>
 A-BTN : Search.<br>
 B-BTN : Display a list of inventory.<br>
