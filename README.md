@@ -1,4 +1,4 @@
-# Rogue4AB
+# Rogue for Arduboy
 
 This is a port of "Rogue" to Arduboy.
 
